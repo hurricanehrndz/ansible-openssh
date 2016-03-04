@@ -2,6 +2,7 @@
 dependencies: []
 galaxy_info:
   author: "Chris Olstrom"
+  company: "TELUS digital"
   description: "OpenSSH is a suite of security-related network-level utilities based on the SSH protocol, which help to secure network communications via the encryption of network traffic over multiple authentication methods and by providing secure tunneling capabilities."
   license: MIT
   min_ansible_version: 1.8
