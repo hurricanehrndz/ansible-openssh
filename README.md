@@ -27,7 +27,7 @@ OpenSSH is a suite of security-related network-level utilities based on the SSH 
 ## Example Playbook
     - hosts: servers
       roles:
-         - role: colstrom.openssh
+         - role: telusdigital.openssh
            openssh_server: yes
            openssh_client: yes
 
