@@ -14,11 +14,6 @@ describe 'ansible-openssh::default' do
     it { should be_listening }
   end
 
-  describe file('/var/run/ssh') do
-    it { should be_directory }
-    it { should be_mode 755 }
-  end
-
   describe file('/etc/ssh/sshd_config') do
     it { should be_owned_by('root') }
     it { should be_owned_by('root') }
