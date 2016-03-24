@@ -1,22 +1,20 @@
 ---
-- include: intuitive-naming.yml
-
-- name: service | ssh | started
+- name: service | openssh | started
   service:
     name: ssh
     state: started
 
-- name: service | ssh | stopped
+- name: service | openssh | stopped
   service:
     name: ssh
     state: stopped
 
-- name: service | ssh | restarted
+- name: service | openssh | restarted
   service:
     name: ssh
     state: restarted
 
-- name: service | ssh | reloaded
+- name: service | openssh | reloaded
   service:
     name: ssh
     state: reloaded

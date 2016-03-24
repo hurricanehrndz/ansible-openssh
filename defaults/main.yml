@@ -3,14 +3,10 @@ openssh_client: no
 openssh_server: no
 openssh_ports:
   - 22
-openssh_runtime_root: "{{ runtime_root | default('/var/run') }}/ssh"
-openssh_pidfile_path: "{{ openssh_runtime_root }}/ssh.pid"
 
-openssh_should_degrade_security_to_accomodate_outdated_clients: no
 openssh_default_ciphers:
   - chacha20-poly1305@openssh.com
   - aes256-gcm@openssh.com
-  - "{{ 'aes256-ctr' if openssh_should_degrade_security_to_accomodate_outdated_clients else 'JINJA_TYPE_COERCION_WORKAROUND' }}"
 openssh_default_key_exchange_algorithms:
   - curve25519-sha256@libssh.org
   - diffie-hellman-group-exchange-sha256
@@ -18,7 +14,6 @@ openssh_default_mac_algorithms:
   - hmac-sha2-512-etm@openssh.com
   - hmac-sha2-256-etm@openssh.com
   - umac-128-etm@openssh.com
-  - "{{ 'hmac-sha2-512' if openssh_should_degrade_security_to_accomodate_outdated_clients else 'JINJA_TYPE_COERCION_WORKAROUND' }}"
 
 openssh_append_ciphers: []
 openssh_append_key_exchange_algorithms: []

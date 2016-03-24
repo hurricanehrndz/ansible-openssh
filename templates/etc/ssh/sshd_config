@@ -1,7 +1,5 @@
 # {{ ansible_managed }}
 
-PidFile {{ openssh_pidfile_path }}
-
 {% for port in openssh_ports %}
 Port {{ port }}
 {% endfor %}

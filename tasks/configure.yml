@@ -1,31 +1,16 @@
 ---
-- name: "Directory Exists | {{ openssh_runtime_root }}"
-  file:
-    state: directory
-    path: "{{ openssh_runtime_root }}"
-    owner: root
-    group: root
-    mode: 0755
-  tags:
-    - directory-structure
-    - runtime-data
-    - openssh
-
-- name: Upload Server Config | /etc/ssh/sshd_config
-  template:
+- template:
     src: etc/ssh/sshd_config
     dest: /etc/ssh/sshd_config
     mode: 0644
     owner: root
     group: root
-  notify: Reload Service | openssh
+  notify: service | ssh | restart
   tags:
-    - configuration
-    - template-configuration
+    - configure
     - openssh
 
-- name: Upload Client Config | /etc/ssh/ssh_config
-  template:
+- template:
     src: etc/ssh/ssh_config
     dest: /etc/ssh/ssh_config
     mode: 0644
@@ -37,8 +22,7 @@
     - template-configuration
     - openssh
 
-- name: "Upload Private Host Keys | /etc/ssh/{{ item }}"
-  template:
+- template:
     src: "{{ item }}"
     dest: "/{{ item }}"
     mode: 0600
@@ -52,8 +36,7 @@
   tags:
     - openssh
 
-- name: "Upload Public Host Keys | /etc/ssh/{{ item }}"
-  template:
+- template:
     src: "{{ item }}"
     dest: "/{{ item }}"
     mode: 0644
@@ -66,3 +49,14 @@
     - etc/ssh/ssh_host_ed25519_key.pub
   tags:
     - openssh
+
+- lineinfile:
+    state: present
+    dest: /etc/sudoers.d/fix-ssh-agent
+    regexp: '^Defaults env_keep\+\=SSH_AUTH_SOCK'
+    line: 'Defaults env_keep+=SSH_AUTH_SOCK'
+    create: yes
+  tags:
+    - configure
+    - openssh
+    - sudo

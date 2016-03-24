@@ -1,20 +1,20 @@
 ---
-- name: Install Packages | openssh-client
-  apt:
+- apt:
     state: latest
-    pkg: "{{ item }}"
+    name: "{{ item }}"
   with_items:
     - openssh-client
   when: openssh_client
   tags:
+    - install
     - openssh
 
-- name: Install Packages | openssh-server
-  apt:
+- apt:
     state: latest
-    pkg: "{{ item }}"
+    name: "{{ item }}"
   with_items:
     - openssh-server
   when: openssh_server
   tags:
+    - install
     - openssh
