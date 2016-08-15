@@ -2,6 +2,7 @@
 
 [OpenSSH](https://wikipedia.org/wiki/OpenSSH) - the OpenBSD Secure Shell
 
+[![Licence](https://img.shields.io/badge/License-MIT-blue.svg)](https://tldrlegal.com/license/mit-license)
 [![Platforms](http://img.shields.io/badge/platforms-ubuntu-lightgrey.svg?style=flat)](#)
 
 ## Description
@@ -41,11 +42,8 @@ OpenSSH is a suite of security-related network-level utilities based on the SSH 
                    private: |
                      REDACT
 
-## License
-
-[MIT](https://tldrlegal.com/license/mit-license)
-
 ## Contributors
 
 * [Chris Olstrom](https://colstrom.github.io/) | [e-mail](mailto:chris@olstrom.com) | [Twitter](https://twitter.com/ChrisOlstrom)
+* Steven Harradine
 * Aaron Pederson
