@@ -5,7 +5,7 @@
     mode: 0644
     owner: root
     group: root
-  notify: service | ssh | restart
+  notify: service | ssh | restarted
   tags:
     - configure
     - openssh
