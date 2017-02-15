@@ -31,8 +31,10 @@
   when: "{{ item.when }} is defined"
   notify: Reload Service | openssh
   with_items:
-    - { path: etc/ssh/ssh_host_rsa_key, when: openssh_ssh_host['rsa'][openssh_role][environment_tier] }
-    - { path: etc/ssh/ssh_host_ed25519_key, when: openssh_ssh_host['ed25519'][openssh_role][environment_tier] }
+    - path: etc/ssh/ssh_host_rsa_key
+      when: openssh_ssh_host['rsa'][openssh_role][environment_tier]
+    - path: etc/ssh/ssh_host_ed25519_key
+      when: openssh_ssh_host['ed25519'][openssh_role][environment_tier]
   tags:
     - openssh
 
@@ -42,11 +44,13 @@
     mode: 0644
     owner: root
     group: root
-  when: "{{ time.when }} is defined"
+  when: "{{ item.when }} is defined"
   notify: Reload Service | openssh
   with_items:
-    - { path: etc/ssh/ssh_host_rsa_key.pub, when: openssh_ssh_host['rsa'][openssh_role][environment_tier] }
-    - { path: etc/ssh/ssh_host_ed25519_key.pub, when: openssh_ssh_host['ed25519'][openssh_role][environment_tier] }
+    - path: etc/ssh/ssh_host_rsa_key.pub
+      when: openssh_ssh_host['rsa'][openssh_role][environment_tier]
+    - path: etc/ssh/ssh_host_ed25519_key.pub
+      when: openssh_ssh_host['ed25519'][openssh_role][environment_tier]
   tags:
     - openssh
 
