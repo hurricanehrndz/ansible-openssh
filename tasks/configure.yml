@@ -23,30 +23,34 @@
     - openssh
 
 - template:
-    src: "{{ item }}"
-    dest: "/{{ item }}"
+    src: "{{ item.path }}"
+    dest: "/{{ item.path }}"
     mode: 0600
     owner: root
     group: root
-  when: openssh_ssh_host is defined
-  notify: Reload Service | openssh
+  when: "{{ item.when }} is defined"
+  notify: service | ssh | reloaded
   with_items:
-    - etc/ssh/ssh_host_rsa_key
-    - etc/ssh/ssh_host_ed25519_key
+    - path: etc/ssh/ssh_host_rsa_key
+      when: openssh_ssh_host['rsa'][openssh_role][environment_tier]
+    - path: etc/ssh/ssh_host_ed25519_key
+      when: openssh_ssh_host['ed25519'][openssh_role][environment_tier]
   tags:
     - openssh
 
 - template:
-    src: "{{ item }}"
-    dest: "/{{ item }}"
+    src: "{{ item.path }}"
+    dest: "/{{ item.path }}"
     mode: 0644
     owner: root
     group: root
-  when: openssh_ssh_host is defined
-  notify: Reload Service | openssh
+  when: "{{ item.when }} is defined"
+  notify: service | ssh | reloaded
   with_items:
-    - etc/ssh/ssh_host_rsa_key.pub
-    - etc/ssh/ssh_host_ed25519_key.pub
+    - path: etc/ssh/ssh_host_rsa_key.pub
+      when: openssh_ssh_host['rsa'][openssh_role][environment_tier]
+    - path: etc/ssh/ssh_host_ed25519_key.pub
+      when: openssh_ssh_host['ed25519'][openssh_role][environment_tier]
   tags:
     - openssh
 
