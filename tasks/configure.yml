@@ -5,6 +5,8 @@
     mode: 0644
     owner: root
     group: root
+    validate: /usr/sbin/sshd -t -f %s
+    backup: yes
   notify: service | ssh | restarted
   tags:
     - configure
@@ -16,6 +18,7 @@
     mode: 0644
     owner: root
     group: root
+    backup: yes
   when: openssh_client
   tags:
     - configuration
@@ -60,6 +63,7 @@
     regexp: '^Defaults env_keep\+\=SSH_AUTH_SOCK'
     line: 'Defaults env_keep+=SSH_AUTH_SOCK'
     create: yes
+    validate: 'visudo -cf %s'
   tags:
     - configure
     - openssh
