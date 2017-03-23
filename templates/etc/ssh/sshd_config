@@ -28,7 +28,7 @@ UsePAM yes
 UseLogin no
 AuthenticationMethods {{ openssh_auth_methods | reject('upper') | join(',')  }}
 PasswordAuthentication no
-KbdInteractiveAuthentication {{ openssh_kbd_interractive_auth }}
+KbdInteractiveAuthentication {{ openssh_kbd_interactive_auth }}
 
 AcceptEnv LANG LC_*
 PrintMotd no
