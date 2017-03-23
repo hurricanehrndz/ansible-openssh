@@ -32,9 +32,9 @@
   notify: service | ssh | reloaded
   with_items:
     - path: etc/ssh/ssh_host_rsa_key
-      when: openssh_ssh_host['rsa'][openssh_role][environment_tier]
+      when: openssh_ssh_host['rsa']['openssh_role']['environment_tier']['private']
     - path: etc/ssh/ssh_host_ed25519_key
-      when: openssh_ssh_host['ed25519'][openssh_role][environment_tier]
+      when: openssh_ssh_host['ed25519']['openssh_role']['environment_tier']['private']
   tags:
     - openssh
 
@@ -48,9 +48,9 @@
   notify: service | ssh | reloaded
   with_items:
     - path: etc/ssh/ssh_host_rsa_key.pub
-      when: openssh_ssh_host['rsa'][openssh_role][environment_tier]
+      when: openssh_ssh_host['rsa']['openssh_role']['environment_tier']['public']
     - path: etc/ssh/ssh_host_ed25519_key.pub
-      when: openssh_ssh_host['ed25519'][openssh_role][environment_tier]
+      when: openssh_ssh_host['ed25519']['openssh_role']['environment_tier']['public']
   tags:
     - openssh
 
