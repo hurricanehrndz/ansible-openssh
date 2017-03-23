@@ -4,22 +4,39 @@
 Port {{ port }}
 {% endfor %}
 
+Protocol 2
+
+# Logging
+SyslogFacility AUTH
+LogLevel VERBOSE
+
 {% for host_key in openssh_host_keys %}
 HostKey {{ host_key }}
 {% endfor %}
 
-Ciphers {{ openssh_ciphers | reject('upper') | join(',') }}
 KexAlgorithms {{ openssh_key_exchange_algorithms | reject('upper') | join(',') }}
+Ciphers {{ openssh_ciphers | reject('upper') | join(',') }}
 MACs {{ openssh_mac_algorithms | reject('upper') | join(',') }}
 
-ChallengeResponseAuthentication no
-PasswordAuthentication no
+# Authentication:
+LoginGraceTime 120
+PermitRootLogin no
+StrictModes yes
+MaxAuthTries 3
+MaxSessions 3
 UsePAM yes
-
-# Brute force bug
-KbdInteractiveAuthentication no
+UseLogin no
+AuthenticationMethods {{ auth_methods }}
+PasswordAuthentication no
+KbdInteractiveAuthentication {{ kbd_interractive_auth }}
 
 AcceptEnv LANG LC_*
 PrintMotd no
-Subsystem sftp /usr/lib/openssh/sftp-server
+
+# Log sftp level file access (read/write/etc.) that would not be easily logged otherwise
+Subsystem sftp  /usr/lib/ssh/sftp-server -f AUTHPRIV -l INFO
 UseDNS no
+
+# Use kernel sandbox mechanisms where possible in unprivileged processes
+# Systrace on OpenBSD, Seccomp on Linux, seatbelt on MacOSX/Darwin, rlimit elsewhere.
+UsePrivilegeSeparation sandbox
