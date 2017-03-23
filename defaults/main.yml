@@ -4,6 +4,13 @@ openssh_server: no
 openssh_ports:
   - 22
 
+# Recommend settings from mozilla hardened
+# https://wiki.mozilla.org/Security/Guidelines/OpenSSH
+openssh_default_host_key_algorithms:
+  - ssh-ed25519-cert-v01@openssh.com
+  - ssh-rsa-cert-v01@openssh.com
+  - ssh-ed25519
+  - ssh-rsa
 openssh_default_ciphers:
   - chacha20-poly1305@openssh.com
   - aes256-gcm@openssh.com
@@ -18,10 +25,12 @@ openssh_default_mac_algorithms:
 openssh_append_ciphers: []
 openssh_append_key_exchange_algorithms: []
 openssh_append_mac_algorithms: []
+openssh_append_host_key_algorithms: []
 
 openssh_ciphers: "{{ openssh_default_ciphers | union (openssh_append_ciphers) }}"
 openssh_key_exchange_algorithms: "{{ openssh_default_key_exchange_algorithms | union (openssh_append_key_exchange_algorithms) }}"
 openssh_mac_algorithms: "{{ openssh_default_mac_algorithms | union (openssh_append_mac_algorithms) }}"
+openssh_host_key_algorithms: "{{ openssh_default_host_key_algorithms | union (openssh_append_host_key_algorithms) }}"
 
 openssh_host_keys:
   - /etc/ssh/ssh_host_ed25519_key
