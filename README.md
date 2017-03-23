@@ -35,8 +35,8 @@ OpenSSH is a suite of security-related network-level utilities based on the SSH 
 ## Static Host Key
            openssh_ssh_host:
              rsa:
-               application:
-                 development:
+               openssh_role:
+                 environment_tier:
                    public: |
                      REDACT
                    private: |
