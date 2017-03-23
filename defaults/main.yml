@@ -35,3 +35,8 @@ openssh_host_key_algorithms: "{{ openssh_default_host_key_algorithms | union (op
 openssh_host_keys:
   - /etc/ssh/ssh_host_ed25519_key
   - /etc/ssh/ssh_host_rsa_key
+
+openssh_auth_methods:
+  - publickey
+
+openssh_kbd_interactive_auth: no
