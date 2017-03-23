@@ -26,9 +26,9 @@ MaxAuthTries 3
 MaxSessions 3
 UsePAM yes
 UseLogin no
-AuthenticationMethods {{ auth_methods }}
+AuthenticationMethods {{ openssh_auth_methods | reject('upper') | join(',')  }}
 PasswordAuthentication no
-KbdInteractiveAuthentication {{ kbd_interractive_auth }}
+KbdInteractiveAuthentication {{ openssh_kbd_interractive_auth }}
 
 AcceptEnv LANG LC_*
 PrintMotd no
