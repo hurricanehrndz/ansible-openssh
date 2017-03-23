@@ -37,3 +37,10 @@ Host *
     GSSAPIAuthentication yes
     GSSAPIDelegateCredentials no
     UseRoaming no
+
+
+    # Host keys the client accepts - order here is honored by OpenSSH
+    HostKeyAlgorithms {{ openssh_host_key_algorithms | reject('upper') | join(',') }}
+    KexAlgorithms {{ openssh_key_exchange_algorithms | reject('upper') | join(',') }}
+    Ciphers {{ openssh_ciphers | reject('upper') | join(',') }}
+    MACs {{ openssh_mac_algorithms | reject('upper') | join(',') }}
