@@ -1,5 +1,18 @@
 ---
-- template:
+- name: Configure pam for sshd
+  lineinfile:
+    state: present
+    dest: /etc/pam.d/sshd
+    regexp: '^@include common-auth$'
+    line: '#@include common-auth'
+    backrefs: yes
+  tags:
+    - configure
+    - openssh
+    - pam
+
+- name: Configure ssh daemon
+  template:
     src: etc/ssh/sshd_config
     dest: /etc/ssh/sshd_config
     mode: 0644
@@ -12,7 +25,8 @@
     - configure
     - openssh
 
-- template:
+- name: Configure ssh client
+  template:
     src: etc/ssh/ssh_config
     dest: /etc/ssh/ssh_config
     mode: 0644
@@ -25,7 +39,8 @@
     - template-configuration
     - openssh
 
-- template:
+- name: Configure ssh host keys
+  template:
     src: "{{ item.path }}"
     dest: "/{{ item.path }}"
     mode: 0600
@@ -41,7 +56,8 @@
   tags:
     - openssh
 
-- template:
+- name: Configure public ssh host keys
+  template:
     src: "{{ item.path }}"
     dest: "/{{ item.path }}"
     mode: 0644
@@ -57,7 +73,8 @@
   tags:
     - openssh
 
-- lineinfile:
+- name: Configure sudoers to keep ssh auth sock
+  lineinfile:
     state: present
     dest: /etc/sudoers.d/fix-ssh-agent
     regexp: '^Defaults env_keep\+\=SSH_AUTH_SOCK'

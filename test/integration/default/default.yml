@@ -8,3 +8,10 @@
     - role: ansible-openssh
       openssh_client: yes
       openssh_server: yes
+      openssh_auth_methods:
+        - "publickey"
+        - "keyboard-interactive:pam"
+      openssh_users_and_auth_methods:
+        - user: "kitchen"
+          auth_method: "publickey"
+      openssh_kbd_interactive_auth: "yes"

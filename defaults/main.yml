@@ -14,6 +14,7 @@ openssh_default_host_key_algorithms:
 openssh_default_ciphers:
   - chacha20-poly1305@openssh.com
   - aes256-gcm@openssh.com
+  - aes256-ctr
 openssh_default_key_exchange_algorithms:
   - curve25519-sha256@libssh.org
   - diffie-hellman-group-exchange-sha256
@@ -21,6 +22,7 @@ openssh_default_mac_algorithms:
   - hmac-sha2-512-etm@openssh.com
   - hmac-sha2-256-etm@openssh.com
   - umac-128-etm@openssh.com
+  - hmac-sha2-512
 
 openssh_append_ciphers: []
 openssh_append_key_exchange_algorithms: []
@@ -39,4 +41,5 @@ openssh_host_keys:
 openssh_auth_methods:
   - publickey
 
-openssh_kbd_interactive_auth: no
+openssh_kbd_interactive_auth: "no"
+openssh_users_and_auth_methods: []
