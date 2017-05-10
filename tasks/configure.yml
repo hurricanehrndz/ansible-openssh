@@ -20,6 +20,7 @@
     group: root
     validate: /usr/sbin/sshd -t -f %s
     backup: yes
+  when: openssh_server
   notify: service | ssh | restarted
   tags:
     - configure
