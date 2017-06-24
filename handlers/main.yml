@@ -3,20 +3,20 @@
 
 - name: service | ssh | started
   service:
-    name: ssh
+    name: "{{ openssh_service_name }}"
     state: started
 
 - name: service | ssh | stopped
   service:
-    name: ssh
+    name: "{{ openssh_service_name }}"
     state: stopped
 
 - name: service | ssh | restarted
   service:
-    name: ssh
+    name: "{{ openssh_service_name }}"
     state: restarted
 
 - name: service | ssh | reloaded
   service:
-    name: ssh
+    name: "{{ openssh_service_name }}"
     state: reloaded

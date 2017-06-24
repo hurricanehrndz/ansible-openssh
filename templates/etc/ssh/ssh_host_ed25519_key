@@ -1,1 +1,1 @@
-{{ openssh_ssh_host['ed25519'][openssh_role][environment_tier]['private'] }}
+{{ openssh_static_host_keys['ed25519']['private'] }}

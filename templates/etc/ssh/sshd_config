@@ -10,8 +10,8 @@ Protocol 2
 SyslogFacility AUTH
 LogLevel VERBOSE
 
-{% for host_key in openssh_host_keys %}
-HostKey {{ host_key }}
+{% for host_key_path in openssh_host_key_paths %}
+HostKey {{ host_key_path }}
 {% endfor %}
 
 KexAlgorithms {{ openssh_key_exchange_algorithms | reject('upper') | join(',') }}
@@ -25,7 +25,6 @@ StrictModes yes
 MaxAuthTries 3
 MaxSessions 6
 UsePAM yes
-UseLogin no
 AuthenticationMethods {{ openssh_auth_methods | reject('upper') | join(',')  }}
 PasswordAuthentication no
 KbdInteractiveAuthentication {{ openssh_kbd_interactive_auth }}

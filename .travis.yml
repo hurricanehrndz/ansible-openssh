@@ -1,15 +1,39 @@
 ---
+language: ruby
+rvm:
+  - 2.4
+
 sudo: required
-# docker is required to run tests
 services: docker
 
+env:
+  global:
+    - ANSIBLE_VERSION=v2.3
+  matrix:
+# Split up the test-kitchen run to avoid exceeding 50 minutes:
+    - KITCHEN_REGEXP=fedora
+    - KITCHEN_REGEXP=debian
+    - KITCHEN_REGEXP=ubuntu
+
+before_install:
+  # Make sure everything's up to date.
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq python-apt python-pycurl git python-pip ruby ruby-dev build-essential autoconf
+  - gem install bundler
+
 install:
+  - bash test/ansible-setup.sh
   - bundle install
+  - ~/.avm/v1.9/venv/bin/pip install netaddr ansible-lint
+  - ~/.avm/v2.2/venv/bin/pip install netaddr ansible-lint
+  - ~/.avm/v2.3/venv/bin/pip install netaddr ansible-lint
 
 script:
-  # run kitchen tests (destroy, create, converge, setup, verify and destroy)
-  - bundle exec kitchen test
-
-notifications:
-  slack:
-    secure: kjPCjR8LR4aPf3s9UnIAz3wtcJ91NK4kNugWa/pcDV++wJHgDIbRIx8bteX1HSAUYUVR8VM6sf5VdpcpUcCC7Owf6raacJOBLwGDRvtymzBB19O2AMTgQClN7Ny9J5QEZgegXBOs0lHiaAl0qzzApaDvGpUWBD03xgpqj/vkpXLVq2sNwquPh49ro38wLoQQK4JEt43YGH0wma2ANix0lxkod+XScTyY5wAolvDZu5u1elXdxBe1tCO5/LVG2H7LFn6gt0ohqk2MGd9huXjtBRMvjFzyc24MgdAMJik1dzfMrxlmnVMmDXTWRlc+czKVqFmkshgF4hKeE2AQVnlTF3xNEv8T3ipycSKRGwkUtA1mu9aKyk5o6l5XEcApbNDXFm9rp9N6ll/f0NWIi8GGGxO5lZpfpGC04foKKOJ7G0YLMsiXgtmUj5hDrafjcbjjF4SByspblBVKfst+aOkRfln3Zznf/TH7onKIaVCvWuX2u6CTKQUCrQpspIpm4Zc/3KttLbuZ/pxsmUyIf/a7JqfVr2Wm/Q4WKBMHgMoN98L6uK+P+/UbDPH9n3/uKKO4A43w3VzvZepyJLVoPtVVacA7aQiMplP9vdBr1r93ChmD2serNaWp9w+EHplbOYLolnGt41ETbqC8QpuG2gSrLZbkB2Q7VhDkBEeowVDoro8=
+  - ansible --version
+  - ruby --version
+  - python --version
+  - pip --version
+  - bundler --version
+  - bundle show
+  - ~/.avm/$ANSIBLE_VERSION/venv/bin/ansible-lint -v ./
+  - bundle exec kitchen test $KITCHEN_REGEXP

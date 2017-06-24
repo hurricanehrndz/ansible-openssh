@@ -34,7 +34,7 @@ openssh_key_exchange_algorithms: "{{ openssh_default_key_exchange_algorithms | u
 openssh_mac_algorithms: "{{ openssh_default_mac_algorithms | union (openssh_append_mac_algorithms) }}"
 openssh_host_key_algorithms: "{{ openssh_default_host_key_algorithms | union (openssh_append_host_key_algorithms) }}"
 
-openssh_host_keys:
+openssh_host_key_paths:
   - /etc/ssh/ssh_host_ed25519_key
   - /etc/ssh/ssh_host_rsa_key
 
@@ -43,3 +43,11 @@ openssh_auth_methods:
 
 openssh_kbd_interactive_auth: "no"
 openssh_users_and_auth_methods: []
+
+openssh_static_host_keys:
+    rsa:
+      private:
+      public:
+    ed25519:
+      private:
+      public:

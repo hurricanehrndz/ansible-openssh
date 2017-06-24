@@ -35,19 +35,22 @@ tunneling capabilities.
 
     - hosts: servers
       roles:
-         - role: telusdigital.openssh
+         - role: ansible-openssh
            openssh_server: yes
            openssh_client: yes
 
 ## Static Host Key
-           openssh_ssh_host:
-             rsa:
-               openssh_role:
-                 environment_tier:
-                   public: |
-                     REDACT
-                   private: |
-                     REDACT
+           openssh_static_host_keys:
+            rsa:
+                public: |
+                    REDACT
+                private: |
+                    REDACT
+            ed25519:
+                public: |
+                    REDACT
+                private: |
+                    REDACT
 ```
 
 ## Example Playbook 2FA for all 1FA for kitchen
