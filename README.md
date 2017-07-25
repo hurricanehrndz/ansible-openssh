@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/hurricanehrndz/ansible-openssh.svg?branch=master)](https://travis-ci.org/hurricanehrndz/ansible-openssh)
+
 # ansible-openssh
 
 [OpenSSH](https://wikipedia.org/wiki/OpenSSH) - the OpenBSD Secure Shell

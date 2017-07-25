@@ -1,12 +1,12 @@
 ---
-- name: Configure pam for sshd
+- name: Configure pam for sshd (Ubuntu/Debian)
   lineinfile:
     state: present
     dest: /etc/pam.d/sshd
     regexp: '^@include common-auth$'
     line: '#@include common-auth'
     backrefs: yes
-  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  when: ansible_os_family == "Ubuntu" or ansible_os_family == "Debian"
   tags:
     - configure
     - openssh

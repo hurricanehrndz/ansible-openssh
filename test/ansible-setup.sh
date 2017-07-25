@@ -1,4 +1,6 @@
 #!/bin/sh
+## Script is sepcifically for use on travis-ci
+
 set -e
 
 ## This is an example setup script that you would encapsulate the installation
