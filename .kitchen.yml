@@ -13,6 +13,8 @@ provisioner:
   require_ansible_omnibus: true
   ansible_version: 2.3.1
   require_chef_for_busser: false
+  sudo_command: sudo -E -H
+  idempotency_test: true
   sudo: true
 
 transport:
