@@ -6,11 +6,35 @@
     regexp: '^@include common-auth$'
     line: '#@include common-auth'
     backrefs: yes
-  when: ansible_os_family == "Ubuntu" or ansible_os_family == "Debian"
+  when: ansible_os_family == "Debian"
   tags:
     - configure
     - openssh
     - pam
+
+- name: Register sftp server pkg contents
+  command: "{{ item.pkg_mgr_list_command }}"
+  register: sftp_server_pkg_contents
+  when:
+    - openssh_server
+    - item.os_family == ansible_os_family
+  with_items:
+    - os_family: RedHat
+      pkg_mgr_list_command: "rpm -ql openssh-server"
+    - os_family: Debian
+      pkg_mgr_list_command: "dpkg -L openssh-sftp-server"
+    - os_family: Suse
+      pkg_mgr_list_command: "rpm -ql openssh"
+  changed_when: false
+  tags:
+    - skip_ansible_lint
+
+- name: Set sftp server path
+  set_fact:
+    sftp_server_path: "{{ sftp_server_pkg_contents.results | selectattr('stdout_lines', 'defined') | map(attribute='stdout_lines') | first | list | select('match', '.*sftp-server$') | first | string }}"
+  when:
+    - openssh_server
+  changed_when: false
 
 - name: Configure ssh daemon
   template:
