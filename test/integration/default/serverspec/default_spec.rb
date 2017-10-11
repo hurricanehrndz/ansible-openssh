@@ -2,15 +2,18 @@ require_relative './spec_helper'
 
 describe 'ansible-openssh::default' do
 
-  describe package('openssh-server') do
-    it { should be_installed }
+  if host_inventory['platform'] != 'opensuse'
+    describe package('openssh-server') do
+      it { should be_installed }
+    end
   end
 
   if host_inventory['platform'] == 'fedora'
     describe package('openssh-clients') do
       it { should be_installed }
     end
-  else
+  end
+  if host_inventory['platform'] == 'ubuntu' || host_inventory['platform'] == 'debian'
     describe package('openssh-client') do
       it { should be_installed }
     end

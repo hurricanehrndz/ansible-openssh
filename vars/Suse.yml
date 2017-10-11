@@ -1,0 +1,4 @@
+---
+openssh_client_pkg_name: openssh
+openssh_server_pkg_name: openssh
+openssh_service_name: sshd
