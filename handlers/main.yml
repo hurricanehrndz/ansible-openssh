@@ -5,18 +5,26 @@
   service:
     name: "{{ openssh_service_name }}"
     state: started
+  when:
+    - ansible_connection != "chroot"
 
 - name: service | ssh | stopped
   service:
     name: "{{ openssh_service_name }}"
     state: stopped
+  when:
+    - ansible_connection != "chroot"
 
 - name: service | ssh | restarted
   service:
     name: "{{ openssh_service_name }}"
     state: restarted
+  when:
+    - ansible_connection != "chroot"
 
 - name: service | ssh | reloaded
   service:
     name: "{{ openssh_service_name }}"
     state: reloaded
+  when:
+    - ansible_connection != "chroot"
