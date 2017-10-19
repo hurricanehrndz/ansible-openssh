@@ -9,9 +9,10 @@ provisioner:
   # use an ansible playbook to provision our server
   name: ansible_playbook
   ansible_verbose: false
+  #ansible_verbosity: 4
   require_ansible_repo: false
   require_ansible_omnibus: true
-  ansible_version: 2.3.1
+  ansible_version: 2.3.2
   require_chef_for_busser: false
   sudo_command: sudo -E -H
   idempotency_test: true
