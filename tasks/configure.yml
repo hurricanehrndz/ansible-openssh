@@ -15,6 +15,8 @@
 - name: Register sftp server pkg contents
   command: "{{ item.pkg_mgr_list_command }}"
   register: sftp_server_pkg_contents
+  args:
+    warn: False
   when:
     - openssh_server
     - item.os_family == ansible_os_family
