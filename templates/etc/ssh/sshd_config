@@ -37,10 +37,6 @@ Subsystem sftp {{ sftp_server_path }} -f AUTHPRIV -l INFO
 
 UseDNS no
 
-# Use kernel sandbox mechanisms where possible in unprivileged processes
-# Systrace on OpenBSD, Seccomp on Linux, seatbelt on MacOSX/Darwin, rlimit elsewhere.
-UsePrivilegeSeparation sandbox
-
 {% for user_and_auth_method in openssh_users_and_auth_methods %}
 Match user {{ user_and_auth_method["user"] }}
   AuthenticationMethods {{ user_and_auth_method["auth_method"] }}
